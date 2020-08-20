@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{index}">
+<head>
+    <meta charset="UTF-8">
+    <title>Hoá đơn nhập</title>
+</head>
+<body layout:fragment="content">
+<!-- Content Row -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Hoá Đơn Nhập</h1>
+        <a th:href="@{add-hoa-don}" class="btn btn-primary">Thêm Hoá Đơn</a>
+    </div>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Bảng hoá đơn nhập</h6>
+        </div>
+        <div class="card-body">
+            <table id="kho-hang" class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Mã hoá đơn</th>
+                    <th>Từ kho</th>
+                    <th>Từ nhà cung cấp</th>
+                    <th>Ngày nhập</th>
+                    <th>Tổng tiền</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${phieuNhapList}">
+                    <td th:text="${item.id}">1</td>
+                    <td th:text="${item.kho.tenKho}"></td>
+                    <td th:text="${item.nhaCungCap.tenNCC}">1</td>
+                    <td th:text="${item.ngayLap}"></td>
+                    <td th:text="${item.tongTien}"></td>
+                    <td>
+                        <a th:href="@{chi-tiet-hoa-don/{id}(id=${item.id})}" class="btn btn-primary"><i class="far fa-eye"></i></a>
+                        <a th:href="@{delete-hoa-don-nhap/{id}(id=${item.id})}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+<div layout:fragment="script">
+    <!--page plugin-->
+    <script th:src="@{~/public/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{~/public/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+    <!--page custom script-->
+    <script th:src="@{~/public/js/demo/datatables-demo.js}"></script>
+</div>
+</html>

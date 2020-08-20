@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{index}">
+<head>
+    <meta charset="UTF-8">
+    <title>Nhà cung cấp</title>
+</head>
+<body layout:fragment="content">
+<!-- Content Row -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Nhà Cung Cấp</h1>
+        <a href=""class="btn btn-primary" data-toggle="modal" data-target="#modalAddNcc">Thêm Nhà Cung Cấp</a>
+    </div>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách nhà cung cấp</h6>
+        </div>
+        <div class="card-body">
+            <table id="kho-hang" class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Mã nhà cung cấp</th>
+                    <th>Tên nhà cung cấp</th>
+                    <th>Địa chỉ</th>
+                    <th>Số điện thoại</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${allNCC}">
+                    <td th:text="${item.id}">1</td>
+                    <td th:text="${item.tenNCC}"></td>
+                    <td th:text="${item.diaChi}">1</td>
+                    <td th:text="${item.soDienThoai}"></td>
+                    <td>
+                        <a href="" class="btn btn-primary"><i class="far fa-eye"></i></a>
+                        <a href="" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                        <a th:href="@{delete-ncc/{id}(id=${item.id})}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<form th:action="@{/hang-hoa/add-ncc}" method="post" class="needs-validation" novalidate>
+    <div class="modal fade" id="modalAddNcc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Thêm nhà cung cấp</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <label class="mb-1" data-error="wrong" data-success="right" for="tenNCC">Nhập Tên Nhà Cung Cấp</label>
+                        <input type="text" id="tenNCC" name="tenNCC" class="form-control validate" required>
+                        <div class="invalid-feedback">
+                            Nhập tên nhà cung cấp
+                        </div>
+                    </div>
+                    <div class="md-form mb-5">
+                        <label class="mb-1" data-error="wrong" data-success="right" for="diaChi">Địa Chỉ Nhà Cung Cấp</label>
+                        <input type="text" id="diaChi" name="diaChi" class="form-control validate" required>
+                        <div class="invalid-feedback">
+                            Nhập số địa chỉ nhà cung cấp
+                        </div>
+                    </div>
+                    <div class="md-form mb-5">
+                        <label class="mb-1" data-error="wrong" data-success="right" for="soDienThoai">Số Điện Thoại</label>
+                        <input type="text" id="soDienThoai" name="soDienThoai" class="form-control validate" required>
+                        <div class="invalid-feedback">
+                            Nhập số điện thoại nhà cung cấp
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+<div layout:fragment="script">
+    <!--page plugin-->
+    <script th:src="@{~/public/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{~/public/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+    <!--page custom script-->
+    <script th:src="@{~/public/js/demo/datatables-demo.js}"></script>
+</div>
+</html>

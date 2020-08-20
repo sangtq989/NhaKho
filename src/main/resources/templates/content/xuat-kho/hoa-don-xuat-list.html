@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{index}">
+<head>
+    <meta charset="UTF-8">
+    <title>Hoá đơn xuất</title>
+</head>
+<body layout:fragment="content">
+<!-- Content Row -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Hoá đơn xuất</h1>
+        <a th:href="@{add-hoa-don-xuat}" class="btn btn-primary">Thêm hoá đơn xuất</a>
+    </div>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách hoá đơn xuất</h6>
+        </div>
+        <div class="card-body">
+            <table id="kho-hang" class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Mã hoá đơn</th>
+                    <th>Tên khách hàng</th>
+                    <th>Tổng tiền</th>
+                    <th>Ngày nhập</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${allPhieuXuat}">
+                    <td th:text="${item.getId()}">1</td>
+                    <td th:text="${item.getTenKhach()}"></td>
+                    <td th:text="${item.getTongTien()}"></td>
+                    <td th:text="${item.getNgayNhap()}"></td>
+                    <td>
+                        <a th:href="@{chi-tiet-hoa-don-xuat/{id}(id=${item.getId()})}" class="btn btn-primary"><i class="far fa-eye"></i></a>
+                        <a th:href="@{delete-hoa-don-xuat/{id}(id=${item.id})}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+<div layout:fragment="script">
+    <!--page plugin-->
+    <script th:src="@{~/public/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{~/public/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+    <!--page custom script-->
+    <script th:src="@{~/public/js/demo/datatables-demo.js}"></script>
+</div>
+</html>

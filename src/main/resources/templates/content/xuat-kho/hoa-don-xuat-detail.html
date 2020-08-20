@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{index}">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết hoá đơn xuất</title>
+</head>
+<body layout:fragment="content">
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <!-- Invoice To -->
+        <div class="card-header">
+            <div class="col-md-6">
+                <h4 th:text="'Hoá đơn xuất kho số '+ ${detailXuatKho.getId()}"></h4>
+                <p th:text="'Ngày nhập: '+ ${detailXuatKho.getNgayNhap()}"></p>
+            </div>
+        </div>
+        <!-- Invoice Table -->
+        <div class="card-body">
+            <table class="table table-hover text-right thead-light">
+                <thead>
+                <tr class="text-capitalize">
+                    <th  class="text-center">Mã vật tư</th>
+                    <th  class="text-center">Tên Vật tư</th>
+                    <th  class="text-center">Số lượng</th>
+                    <th  class="text-center">Giá thành</th>
+                    <th  class="text-center">Tổng giá thành</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${itemPhieuXuat}" class="container-money">
+                    <td th:text="${item.getProduct().getId()}"class="text-center">{{$item->id}}</td>
+                    <td th:text="${item.getProduct().getTenHangHoa()}" class="text-center">{{$item->dish_name}}</td>
+                    <td th:text="${item.getSoLuong()}">{{$item->pivot->quantity}}</td>
+                    <td th:text="${item.getProduct().getDonGia()}"><span class="money">{{$item->dish_price}}</span>đ</td>
+                    <td th:text="${item.getSoLuong() * item.getProduct().getDonGia()}"><span class="money">{{$item->pivot->quantity * $item->dish_price }}</span>đ</td>
+                </tr>
+
+
+                </tbody>
+                <tfoot>
+                <tr class="container-money">
+                    <td colspan="4">Tổng giá thành:</td>
+                    <td><span th:text="${detailXuatKho.getTongTien()}" class="money"></span>đ</td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

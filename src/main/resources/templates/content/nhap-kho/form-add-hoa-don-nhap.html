@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{index}">>
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm hoá đơn </title>
+
+</head>
+<body layout:fragment="content">
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Nhập hoá đơn nhập</h1>
+        </div>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Nhập hoá đơn nhập</h6>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/nhap-kho/add-hoa-don-submit}" method="post" id="formHoaDonNhap">
+                    <div class="form-group row">
+                        <label for="nhaCungCap" class="col-sm-3 col-form-label">Chọn kho hàng nhập</label>
+                        <div class="col-sm-9">
+                            <select class="form-control validate" name="kho" id="kho">
+                                <option th:each="item : ${allKho}"
+                                        th:value="${item.id}"
+                                        th:text="${item.tenKho}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="nhaCungCap" class="col-sm-3 col-form-label">Chọn nhà cung cấp</label>
+                        <div class="col-sm-9">
+                            <select class="form-control validate" name="nhaCungCap" id="nhaCungCap">
+                                <option th:each="item : ${allNCC}"
+                                        th:value="${item.id}"
+                                        th:text="${item.tenNCC}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row ">
+                        <label class="col-sm-3 col-form-label">Chọn vật tư</label>
+                        <div class="col-sm-9 dropdownx">
+                            <input type="text" id="droptxt" class="list" readonly>
+                            <input type="hidden" name="result" id="result">
+                            <div id="contentx" class="contentx">
+                                <div th:each="item : ${allVatTu}" class="list">
+                                    <input type="checkbox"  class="list" th:value="${item.getId()}" th:data-value="${item.getTenHangHoa()}" />
+                                    <label class="list" th:text="${item.getTenHangHoa()}"> </label>
+                                    <input type="hidden" class="list quantity" min="1" value="1" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-9 offset-sm-3">
+                            <input type="submit" class="btn btn-primary">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<div layout:fragment="script">
+    <!--page plugin-->
+    <script th:src="@{~/public/js/customMutilSelect.js}"></script>
+</div>
+</html>

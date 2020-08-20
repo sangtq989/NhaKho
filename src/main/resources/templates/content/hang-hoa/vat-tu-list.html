@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{index}">
+<head>
+    <meta charset="UTF-8">
+    <title>Vật tư</title>
+</head>
+<body layout:fragment="content">
+<!-- Content Row -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Vật tư</h1>
+        <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalAddVattu">Thêm Vật tư</a>
+    </div>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách vật tư</h6>
+        </div>
+        <div class="card-body">
+            <table id="kho-hang" class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Mã Vật tư</th>
+                    <th>Tên Vật tư</th>
+                    <th>Loại hàng</th>
+                    <th>Đơn giá</th>
+                    <th>Số lượng</th>
+                    <th>Ghi chú</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${allVatTu}">
+                    <td th:text="${item.id}"></td>
+                    <td th:text="${item.tenHangHoa}"></td>
+                    <td th:text="${item.loaiHang.tenLoaiHang}"></td>
+                    <td th:text="${item.donGia}"></td>
+                    <td th:text="${item.soLuong}"></td>
+                    <td th:text="${item.ghiChu}"></td>
+                    <td>
+                        <a href="" class="btn btn-primary"><i class="far fa-eye"></i></a>
+                        <a href="" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                        <a th:href="@{delete-vat-tu/{id}(id=${item.id})}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<form th:action="@{/hang-hoa/add-vat-tu}" method="post" class="needs-validation" novalidate>
+    <div class="modal fade" id="modalAddVattu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Thêm vật tư</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <label class="mb-1" data-error="wrong" data-success="right" for="tenHangHoa">Nhập tên vật tư</label>
+                        <input type="text" id="tenHangHoa" name="tenHangHoa" class="form-control validate" required>
+                        <div class="invalid-feedback">
+                            Điền tên hàng hoá
+                        </div>
+                    </div>
+                    <div class="md-form mb-5">
+                        <label class="mb-1" data-error="wrong" data-success="right" for="donGia">Đơn giá</label>
+                        <input type="number" id="donGia" name="donGia" class="form-control validate" required>
+                        <div class="invalid-feedback">
+                            Điền giá hàng hoá.
+                        </div>
+                    </div>
+                    <div class="md-form mb-5">
+                        <label class="mb-1" data-error="wrong" data-success="right" for="loaiHang">Loại hàng hoá </label>
+                        <select class="form-control validate" name="loaiHang" id="loaiHang">
+                            <option th:each="item : ${allLoaiHang}"
+                                    th:value="${item.id}"
+                                    th:text="${item.tenLoaiHang}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="md-form mb-5">
+                        <label class="mb-1" data-error="wrong" data-success="right" for="soLuong">Số lượng</label>
+                        <input type="number" id="soLuong" name="soLuong" class="form-control validate" required>
+                        <div class="invalid-feedback">
+                            Nhập số lượng
+                        </div>
+                    </div>
+                    <div class="md-form mb-5">
+                        <label class="mb-1" data-error="wrong" data-success="right" for="ghiChu">Ghi chú</label>
+                        <input type="text" id="ghiChu" name="ghiChu" class="form-control validate" required>
+                        <div class="invalid-feedback">
+                            Nhập ghi chú.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+<div layout:fragment="script">
+    <!--page plugin-->
+    <script th:src="@{~/public/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{~/public/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+    <!--page custom script-->
+    <script th:src="@{~/public/js/demo/datatables-demo.js}"></script>
+</div>
+</html>
